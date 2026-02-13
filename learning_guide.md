@@ -12,7 +12,7 @@
 * Hardware Impact: Calculating how much internal FIFO depth you need to "hide" the round-trip latency of the PCIe bus.
 
 ## Phase 3: The Gen 4 Physical & Data Link Reality
-* 16 GT/s Challenges: Why Gen 4 introduced mandatory Forward Error Correction (FEC) and how it adds a tiny, deterministic latency to your packets.
+* 16 GT/s Challenges
 * 128b/130b Encoding: Moving away from the 8b/10b overhead of Gen 2.
 * LCRC and Sequence Numbers: How the Data Link Layer handles "Replay"—what happens to your logic when a packet is corrupted and the IP core has to "rewind" the bus?
 * Equalization (EQ): The Phase 0–3 negotiation that happens before your logic even wakes up.

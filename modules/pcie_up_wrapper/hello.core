@@ -1,0 +1,19 @@
+CAPI=2:
+name: ::hello:1.0.0
+
+filesets:
+  rtl:
+    files: [hello.v]
+    file_type: verilogSource
+
+targets:
+  default: &default
+    filesets: [rtl]
+    toplevel: hello
+
+  sim:
+    <<: *default
+    description: Simulate the design using the Flow API
+    flow: sim
+    flow_options:
+      tool: icarus

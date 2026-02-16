@@ -1,0 +1,4 @@
+temp/
+fusesoc.conf
+venv/
+build/

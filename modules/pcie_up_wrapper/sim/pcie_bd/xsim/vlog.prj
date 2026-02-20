@@ -1,0 +1,54 @@
+verilog xil_defaultlib --include "../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/gtwizard_ultrascale_v1_7_gthe4_channel.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/pcie_bd_pcie4c_uscale_plus_0_0_gt_gthe4_channel_wrapper.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/gtwizard_ultrascale_v1_7_gthe4_common.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/pcie_bd_pcie4c_uscale_plus_0_0_gt_gthe4_common_wrapper.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/pcie_bd_pcie4c_uscale_plus_0_0_gt_gtwizard_gthe4.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/pcie_bd_pcie4c_uscale_plus_0_0_gt_gtwizard_top.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/ip_0/sim/pcie_bd_pcie4c_uscale_plus_0_0_gt.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_cxs_remap.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_16k_int.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_16k.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_32k.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_4k_int.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_msix.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_rep_int.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_rep.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram_tph.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_bram.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gtwizard_top.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_phy_ff_chain.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gen4_fast2slow.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gen4_rx_64b_bridge.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gen4_tx_64b_bridge.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gen4_perlane_64b_bridge.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gen4_tx_eq_bridge.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gen4_perlane_eq_bridge.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_phy_pipeline.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_gt_channel.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_gt_common.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_phy_clk.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_phy_rst.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_phy_rxeq.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_phy_txeq.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_sync_cell.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_sync.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_cdr_ctrl_on_eidle.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_receiver_detect_rxterm.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_gt_phy_wrapper.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_phy_top.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_init_ctrl.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_pl_eq.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_vf_decode.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_vf_decode_attr.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_pipe.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_seqnum_fifo.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_sys_clk_gen_ps.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/source/pcie_bd_pcie4c_uscale_plus_0_0_pcie4c_uscale_core_top.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/ip/pcie_bd_pcie4c_uscale_plus_0_0/sim/pcie_bd_pcie4c_uscale_plus_0_0.v" \
+"../../../vivado/.gen/sources_1/bd/pcie_bd/sim/pcie_bd.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

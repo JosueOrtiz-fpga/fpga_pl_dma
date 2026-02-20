@@ -1,0 +1,61 @@
+{
+	"version": "1.0",
+	"modules": {
+		"pcie_bd": {
+			"proto_instances": {
+				"/pcie4c_uscale_plus_0/m_axis_cq": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"ACLK": { "actual": "user_clk"},
+						"ARESET": { "actual": "user_reset"},
+						"TDATA": { "actual": "m_axis_cq_tdata[255:0]"},
+						"TKEEP": { "actual": "m_axis_cq_tkeep[7:0]"},
+						"TLAST": { "actual": "m_axis_cq_tlast"},
+						"TREADY": { "actual": "m_axis_cq_tready"},
+						"TUSER": { "actual": "m_axis_cq_tuser[87:0]"},
+						"TVALID": { "actual": "m_axis_cq_tvalid"}
+					}
+				},
+				"/pcie4c_uscale_plus_0/m_axis_rc": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"ACLK": { "actual": "user_clk"},
+						"ARESET": { "actual": "user_reset"},
+						"TDATA": { "actual": "m_axis_rc_tdata[255:0]"},
+						"TKEEP": { "actual": "m_axis_rc_tkeep[7:0]"},
+						"TLAST": { "actual": "m_axis_rc_tlast"},
+						"TREADY": { "actual": "m_axis_rc_tready"},
+						"TUSER": { "actual": "m_axis_rc_tuser[74:0]"},
+						"TVALID": { "actual": "m_axis_rc_tvalid"}
+					}
+				},
+				"/pcie4c_uscale_plus_0/s_axis_cc": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"ACLK": { "actual": "user_clk"},
+						"ARESET": { "actual": "user_reset"},
+						"TDATA": { "actual": "s_axis_cc_tdata[255:0]"},
+						"TKEEP": { "actual": "s_axis_cc_tkeep[7:0]"},
+						"TLAST": { "actual": "s_axis_cc_tlast"},
+						"TREADY": { "actual": "s_axis_cc_tready[3:0]"},
+						"TUSER": { "actual": "s_axis_cc_tuser[32:0]"},
+						"TVALID": { "actual": "s_axis_cc_tvalid"}
+					}
+				},
+				"/pcie4c_uscale_plus_0/s_axis_rq": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"ACLK": { "actual": "user_clk"},
+						"ARESET": { "actual": "user_reset"},
+						"TDATA": { "actual": "s_axis_rq_tdata[255:0]"},
+						"TKEEP": { "actual": "s_axis_rq_tkeep[7:0]"},
+						"TLAST": { "actual": "s_axis_rq_tlast"},
+						"TREADY": { "actual": "s_axis_rq_tready[3:0]"},
+						"TUSER": { "actual": "s_axis_rq_tuser[61:0]"},
+						"TVALID": { "actual": "s_axis_rq_tvalid"}
+					}
+				}
+			}
+		}
+	}
+}

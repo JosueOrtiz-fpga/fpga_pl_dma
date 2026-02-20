@@ -225,7 +225,7 @@ proc create_root_design { parentCell } {
    CONFIG.HAS_TREADY {1} \
    CONFIG.HAS_TSTRB {0} \
    CONFIG.LAYERED_METADATA {undef} \
-   CONFIG.TDATA_NUM_BYTES {16} \
+   CONFIG.TDATA_NUM_BYTES {32} \
    CONFIG.TDEST_WIDTH {0} \
    CONFIG.TID_WIDTH {0} \
    CONFIG.TUSER_WIDTH {33} \
@@ -238,7 +238,7 @@ proc create_root_design { parentCell } {
    CONFIG.HAS_TREADY {1} \
    CONFIG.HAS_TSTRB {0} \
    CONFIG.LAYERED_METADATA {undef} \
-   CONFIG.TDATA_NUM_BYTES {16} \
+   CONFIG.TDATA_NUM_BYTES {32} \
    CONFIG.TDEST_WIDTH {0} \
    CONFIG.TID_WIDTH {0} \
    CONFIG.TUSER_WIDTH {62} \
@@ -265,12 +265,13 @@ proc create_root_design { parentCell } {
   # Create instance: pcie4c_uscale_plus_0, and set properties
   set pcie4c_uscale_plus_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:pcie4c_uscale_plus:1.0 pcie4c_uscale_plus_0 ]
   set_property -dict [list \
-    CONFIG.PCIE_BOARD_INTERFACE {pci_express_x4} \
+    CONFIG.PCIE_BOARD_INTERFACE {Custom} \
     CONFIG.PF0_Use_Class_Code_Lookup_Assistant {false} \
     CONFIG.PL_LINK_CAP_MAX_LINK_SPEED {16.0_GT/s} \
-    CONFIG.SYS_RST_N_BOARD_INTERFACE {pcie_perstn} \
+    CONFIG.PL_LINK_CAP_MAX_LINK_WIDTH {X4} \
+    CONFIG.SYS_RST_N_BOARD_INTERFACE {Custom} \
     CONFIG.TL_PF_ENABLE_REG {1} \
-    CONFIG.axisten_if_width {128_bit} \
+    CONFIG.axisten_if_width {256_bit} \
     CONFIG.extended_tag_field {true} \
     CONFIG.mode_selection {Basic} \
     CONFIG.pf0_bar0_scale {Kilobytes} \

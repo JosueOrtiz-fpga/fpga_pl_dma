@@ -7,15 +7,19 @@ We will specifically look at setting it up for PCIe Gen 4, targetting the Anet A
 ### Block design creation
 It's recommended to use a block design for this walkthrough
 
-<img src="../../docs/bd_1.PNG" alt="Alt text" width="1000">
+<img src="./snips/bd_1.PNG" alt="Alt text" width="1000">
 
 Search for the PCIe block
 
-<img src="../../docs/bd_2.PNG" alt="Alt text" width="1000">
+<img src="./snips/bd_2.PNG" alt="Alt text" width="1000">
 
 Double click on the placed core, a window appears
 
-<img src="../../docs/bd_4.PNG" alt="Alt text" width="650">
+### Board Settings
+Under the Board Settings tab
+* RST sys_rst: `Custom`
+* pcie_7x_mgt: `Custom`\
+<img src="./snips/bd_4.PNG" alt="Alt text" width="500">\
 
 ### Basic Configuration
 Before we select board settings, we must set the our settings in the Basic tab
@@ -34,17 +38,10 @@ Before we select board settings, we must set the our settings in the Basic tab
 * Additional Transceiver Control and Status Ports: `Unselected`
 * System Reset Polarity: `ACTIVE LOW`
 
-<img src="../../docs/bd_6_BASIC_1.PNG" alt="Alt text" width="500">\
-<img src="../../docs/bd_6_BASIC_2.PNG" alt="Alt text" width="300">\
-<img src="../../docs/bd_6_BASIC_3.PNG" alt="Alt text" width="650">\
-<img src="../../docs/bd_6_BASIC_4.PNG" alt="Alt text" width="650">\
-
-### Board Settings
-Under the Board Settings tab
-* RST sys_rst: `pcie perstn`
-* pcie_7x_mgt: `pci express x4`
-
-<img src="../../docs/bd_4.PNG" alt="Alt text" width="500">\
+<img src="./snips/bd_6_BASIC_1.PNG" alt="Alt text" width="500">\
+<img src="./snips/bd_6_BASIC_2.PNG" alt="Alt text" width="300">\
+<img src="./snips/bd_6_BASIC_3.PNG" alt="Alt text" width="650">\
+<img src="./snips/bd_6_BASIC_4.PNG" alt="Alt text" width="650">\
 
 ### Capabilities
 Under the Capabilities tab
@@ -56,7 +53,7 @@ Under the Capabilities tab
 ### PF IDs
 Under the PF IDs tab, all default values are used
 
-<img src="../../docs/bd_6_PF_IDs.PNG" alt="Alt text" width="750">
+<img src="./snips/bd_6_PF_IDs.PNG" alt="Alt text" width="750">
 
 ### PF BARs
 Under the PF BARs tab, we create two memory regions as follows:
@@ -80,71 +77,71 @@ Under the LegacyMSI Cap:
 * PF0 Interrupt Pin: `NONE`
 * Enable PF0 MSI Capability Structure: `Unselected`
 
-<img src="../../docs/bd_6_LegacyMSI_Cap.PNG" alt="Alt text" width="750">
+<img src="./snips/bd_6_LegacyMSI_Cap.PNG" alt="Alt text" width="750">
 
 ### Connection Automation
 Select OK to close the core configuration window.\
 We now return to our block design and click on "Run Connection Automation"
 
-<img src="../../docs/bd_7_connection.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection.PNG" alt="Alt text" width="600">
 
 A new window appears, select the parent check box
 
-<img src="../../docs/bd_7_connection_2.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection_2.PNG" alt="Alt text" width="600">
 
 Select, pcie4_mgt and ensure a x4 interface is enabled
 
-<img src="../../docs/bd_7_connection_3.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection_3.PNG" alt="Alt text" width="600">
 
 Select, sys_clk and select "New External Port" as the source with a frequency of 100 MHz
 
-<img src="../../docs/bd_7_connection_4.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection_4.PNG" alt="Alt text" width="600">
 
 Select sys_clk_gt and select "New External Port" as the source with a frequency of 100 MHz
 
-<img src="../../docs/bd_7_connection_5.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection_5.PNG" alt="Alt text" width="600">
 
 Select sys_reset and select "pcie perstn" as the source
 
-<img src="../../docs/bd_7_connection_6.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection_6.PNG" alt="Alt text" width="600">
 
 ### User Connections
 Click OK to close the Connection Automation window\
 We now return to our block design which should look similar to this
 
-<img src="../../docs/bd_7_connection_7.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_connection_7.PNG" alt="Alt text" width="600">
 
 Let's rename the clock ports to avoid confusion, simply click on a port name \
 and an External Port Properties sub-window should open on the side allowing us to change the Name field\
-<img src="../../docs/bd_7_renaming_clock.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_renaming_clock.PNG" alt="Alt text" width="600">
 
 Let's also make all remaining ports external\
 Right-click on the core and select `Make External`\
-<img src="../../docs/bd_7_all_ports_external.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_all_ports_external.PNG" alt="Alt text" width="600">
 
 Let's now validate the design to check for errors, right-clock on an empty space in the block design \
 and select `Validate Design`\
-<img src="../../docs/bd_7_validation.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_7_validation.PNG" alt="Alt text" width="600">
 
 And with that, our initial block design is complete, we will now export a TCL script that can be \
 sourced by Vivado to rebuild this block design.\
 ## Block Design Export
 With our block design still in view, select `File` > `Export` > `Export Block Design`\
-<img src="../../docs/bd_8_export.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_8_export.PNG" alt="Alt text" width="600">
 
 When prompted, choose the destination of your choice and select OK.\
 We now have a configured IP core and a quick way of rebuilding it. \
 The last step will be to create a wrapper of the IP core. Click on the Sources Tab\
 Under Design Sources, find the block design\
-<img src="../../docs/bd_wrapper.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_wrapper.PNG" alt="Alt text" width="600">
 
 Right Click and select `Create HDL Wrapper`\
 A prompt will appear giving you an option of how to handle the wrapper\
 Select `Copy generated wrapper to allow user edits`\
-<img src="../../docs/bd_wrapper_2.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_wrapper_2.PNG" alt="Alt text" width="600">
 
 You should now see the wrapper under the Design Sources Tab\
-<img src="../../docs/bd_wrapper_3.PNG" alt="Alt text" width="600">
+<img src="./snips/bd_wrapper_3.PNG" alt="Alt text" width="600">
 
 ## Simulation
 

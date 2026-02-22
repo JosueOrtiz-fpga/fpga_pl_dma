@@ -21,4 +21,6 @@ modules/        # design modules
 ## Curent Design
 **Directory:** modules/pcie_up_wrapper
 **Description:** Ultrascle+ PCIe Integrated block
-**Working Goal:** Generae a simulation testbench for the block 
+**Working Goal:** Generae a simulation testbench for the block
+**IP Core Diagram:** https://docs.amd.com/viewer/attachment/tCJDwogjyJ9_CE2Q_px23A/KG~8B5GtqodH3WdO~7_jMA-tCJDwogjyJ9_CE2Q_px23A
+**Design Document:** docs/PCIE_UP_wrapper.md

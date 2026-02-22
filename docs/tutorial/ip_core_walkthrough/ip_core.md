@@ -22,7 +22,6 @@ Under the Board Settings tab
 <img src="./snips/bd_4.PNG" alt="Alt text" width="500">\
 
 ### Basic Configuration
-Before we select board settings, we must set the our settings in the Basic tab
 * Mode: `Basic`
 * Device Port Type: `PCIe Express Edpoint Device`
 * Lane Width: `x4`
@@ -119,12 +118,12 @@ Let's also make all remaining ports external\
 Right-click on the core and select `Make External`\
 <img src="./snips/bd_7_all_ports_external.PNG" alt="Alt text" width="600">
 
-Let's now validate the design to check for errors, right-clock on an empty space in the block design \
+Let's now validate the design to check for errors, right-click on an empty space in the block design \
 and select `Validate Design`\
 <img src="./snips/bd_7_validation.PNG" alt="Alt text" width="600">
 
 And with that, our initial block design is complete, we will now export a TCL script that can be \
-sourced by Vivado to rebuild this block design.\
+sourced by Vivado to rebuild this block design\
 ## Block Design Export
 With our block design still in view, select `File` > `Export` > `Export Block Design`\
 <img src="./snips/bd_8_export.PNG" alt="Alt text" width="600">

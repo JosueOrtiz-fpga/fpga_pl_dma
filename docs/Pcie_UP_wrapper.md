@@ -157,6 +157,45 @@ DW (Double Word, 32 bits)
 |41:38|is_eof_1[3:0]|4|End of a second Completion TLP and the offset of its last Dword. These outputs are used only when the interface width is 256 bits and the straddle option is enabled. The core straddles two Completion TLPs in the same beat. These outputs are reserved in all other cases. The assertion of is_eof_1[0] indicates a second TLP ending in the same beat. When bit 0 of is_eof_1 is set, bits [3:1] provide the offset of the last Dword of the TLP ending in this beat. Because the second TLP can only end at a byte position in the range 27–31, is_eof_1[3:1] can only take one of two values (6 or 7). The offset for the last byte of the second TLP can be determined from the starting address and length of the TLP, or from the byte enable signals byte_en[31:0]. If is_eof_1[0] is High, the signals is_eof_0[0] and is_sof_1 are also High in the same beat.|
 |42|discontinue|1|This signal is asserted by the core in the last beat of a TLP, if it has detected an uncorrectable error while reading the TLP payload from its internal FIFO memory. The user application must discard the entire TLP when such an error is signaled by the core. This signal is never asserted when the TLP has no payload. It is asserted only in the last beat of the payload transfer; that is, when is_eof_0[0] is High. When the straddle option is enabled, the core does not start a second TLP if it has asserted discontinue in a beat. When the core is configured as an Endpoint, the error is also reported by the core to the Root Complex to which it is attached, using Advanced Error Reporting (AER).|
 |74:43|parity|32|Odd parity for the 256-bit transmit data. Bit i provides the odd parity computed for byte i of m_axis_rc_tdata. Only the lower 16 bits are used when the interface width is 128 bits, and only the lower 8 bits are used when the interface width is 64 bits. Bits [31:16] are set permanently to 0 by the core when the interface width is configured as 128 bits, and bits [31:8] are set permanently to 0 when the interface width is configured as 64 bits.|
+### 4.x Other Interfaces
+The PCIe core supports additional configuration, status, and control interfaces. Only those required and used in this implementation are described below
+#### 4.x.x Power Management Interface
+|Name|Direction|Width|Description|
+|---|---|---|---|
+|cfg_pm_aspm_l1_entry_reject|I|1|Configuration Power Management ASPM L1 Entry Reject: When driven to 1b, Downstream Port rejects transition requests to L1 state.|
+|cfg_pm_aspm_tx_l0s_entry_disable|I|1|Configuration Power Management ASPM L0s Entry Disable: When driven to 1b, prevents the Port from entering TX L0s.|
+#### 4.x.x Configuration Status Interface
+
+|Name|Direction|Width|Description|
+|---|---|---|---|
+|cfg_phy_link_down|O|1|Configuration Link Down. Status of the PCI Express link based on the Physical Layer LTSSM.|
+|cfg_phy_link_status|O|2|Configuration Link Status. Status of the PCI Express link.|
+|cfg_negotiated_width|O|3|Negotiated Link Width. This output indicates the negotiated width of the given PCI Express Link and is valid when cfg_phy_link_status[1:0] == 11b (DL Initialization is complete).|
+|cfg_current_speed|O|2|Current Link Speed. This signal outputs the current link speed of the given PCI Express Link.|
+|cfg_max_payload|O|2|Max_Payload_Size. This signal outputs the maximum payload size from Device Control register.|
+|cfg_max_read_req|O|3|Max_Read_Request_Size. This signal outputs the maximum read request size from Device Control register.|
+|cfg_function_status|O|16|Configuration Function Status. These outputs indicate the states of the Command register bits in the PCI configuration space of each function.|
+|cfg_vf_status|O|504|Configuration Virtual Function Status. Indicates status for each Virtual Function. Note: In PL-PCIE5, this port is present, but it is deprecated and should not be used.|
+|cfg_function_power_state|O|12|Configuration Function Power State. These outputs indicate the current power state of the physical functions.|
+|cfg_vf_power_state|O|756|Configuration Virtual Function Power State. These outputs indicate the current power state of the virtual functions. Note: In PL-PCIE5, this port is present, but it is deprecated and should not be used.|
+|cfg_link_power_state|O|2|Current power state of the PCI Express link, and is valid when cfg_phy_link_status[1:0] == 11b (DL Initialization is complete).|
+|cfg_local_error_out|O|5|Local Error Conditions. Indicates various local error types with a priority system.|
+|cfg_local_error_valid|O|1|Local Error Conditions Valid. Activates for one cycle when any error in cfg_local_error_out is encountered.|
+|cfg_rx_pm_state|O|2|Current RX Active State Power Management L0s State.|
+|cfg_tx_pm_state|O|2|Current TX Active State Power Management L0s State.|
+|cfg_ltssm_state|O|6|LTSSM State. Shows the current LTSSM state of the Physical Layer.|
+|cfg_rcb_status|O|4|RCB Status. Provides the setting of the Read Completion Boundary (RCB) bit in the Link Control register.|
+|cfg_dpa_substate_change|O|4|Dynamic Power Allocation Substate Change. Indicates a DPA event for a Physical Function.|
+|cfg_obff_enable|O|2|Optimized Buffer Flush Fill Enable. Reflects the setting of the OBFF Enable field.|
+|cfg_pl_status_change|O|1|Used in Root Port mode to signal link training-related events.|
+|cfg_tph_requester_enable|O|4|Reflects the setting of the TPH Requester Enable bit for each physical function.|
+|cfg_tph_st_mode|O|12|Reflects the setting of the ST Mode Select bits for each physical function.|
+|cfg_vf_tph_requester_enable|O|252|Reflects the setting of the TPH Requester Enable bit for each virtual function.|
+|cfg_vf_tph_st_mode|O|756|Reflects the setting of the ST Mode Select bits for each virtual function.|
+|pcie_tfc_nph_av|O|4|Indicates currently available header credit for Non-Posted TLPs.|
+|pcie_tfc_npd_av|O|4|Indicates currently available payload credit for Non-Posted TLPs.|
+|pcie_rq_tag_av|O|4|Indicates the number of free tags available for allocation to Non-Posted requests.|
+
 ### 4.x Clocks
 Port descriptions taken from UltraScale+ Devices Integrated Block for PCI Express Product Guide (PG213).
 |Name |Direction |Description |

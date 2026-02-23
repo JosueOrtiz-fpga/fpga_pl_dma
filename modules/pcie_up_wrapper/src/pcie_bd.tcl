@@ -56,7 +56,9 @@ if { $list_projs eq "" } {
 
 # CHANGE DESIGN NAME HERE
 variable design_name
-set design_name pcie_bd
+
+#set design_name pcie_bd
+set design_name xilinx_pcie4_uscale_ep
 
 # If you do not already have an existing IP Integrator design open,
 # you can create a design using the following command:

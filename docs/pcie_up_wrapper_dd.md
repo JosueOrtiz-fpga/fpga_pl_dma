@@ -8,12 +8,6 @@ This block is a wrapper around the AMD UltraScale+ PCIe Integrated Block IP. It 
 The design will use the AMD UltraScale+ PCIe Integrated Block, configured as a Gen4 x4 Endpoint. This provides the core functionality for the PCIe interface.
 
 ### Simulation Strategy
-A trade study was conducted to select the most effective verification strategy. The following options were considered:
-1.  **Pure `cocotb`:** Using Python-based testbenches with the `cocotbext-pcie` library.
-2.  **Vendor Example:** Using the AMD-provided Verilog example design.
-3.  **Hybrid:** Combining `cocotb` with the Verilog models from the vendor example.
-
-The initial vendor example was found to be specific to an XDMA configuration, making it unsuitable for direct use. Therefore, a **pure `cocotb` approach was selected**. This strategy offers the most flexibility and avoids the overhead of modifying an unrelated example design. It will leverage the `cocotbext-pcie` library to provide models for the Root Complex and other bus functional models (BFMs).
 
 ## 3.0 Theory of Operation
 _Outline the major functions or walkthrough the typical use case of the design_
@@ -223,27 +217,36 @@ The testbench is built using the `cocotb` framework. This allows for test case d
 The testbench is composed of two primary parts: a Python test script and a top-level Verilog file. The Python script is responsible for high-level test flow, acting as both the simulated Root Complex (originating requests) and the simulated User Logic (responding to requests). The Verilog top-level instantiates the DUT and the necessary Verilog BFMs that interface between the Python environment and the DUT.
 
 ```text
-+-------------------------------------------------------------------------------------------------+
-| COCOTB TESTBENCH ENVIRONMENT                                                                    |
-|                                                                                                 |
-| +---------------------------------+ +---------------------------------------------------------+ |
-| | Python Test Script              | | Verilog Top-Level (tb_pcie_up_wrapper.v)                | |
-| | (test_pcie.py)                  | |                                                         | |
-| |                                 | |    +-----------------+         +----------------------+ | |
-| | [Simulated Root Complex]        | |    | Root Complex    |         |                      | | |
-| |  - Generates TLPs               | |    | BFM (Verilog    |<------->|       PCIe x4 Link   | | |
-| |  - Consumes TLPs                |<---->| part of         |         |       (Sim Model)    | | |
-| |                                 | |    | cocotbext-pcie) |         |                      | | |
-| |                                 | |    +-----------------+         |                      | | |
-| | [Simulated User Logic]          | |                                | pcie_bd_wrapper      | | |
-| |  - Consumes AXI-Stream data     |<---->|    +-----------------+    | (DUT)                | | |
-| |  - Generates AXI-Stream data    | |    | User Logic BFM  |         |                      | | |
-| |                                 | |    | (AXI-Stream     |<------->| AXI-Stream Interface | | |
-| |                                 | |    |  Drivers)       |         |                      | | |
-| +---------------------------------+ |    +-----------------+         +----------------------+ | |
-|                                     +---------------------------------------------------------+ |
-|                                                                                                 |
-+-------------------------------------------------------------------------------------------------+
+    1                                  +---------------------------------------+
+    2                                  |                BOARD                  |
+    3                                  |  (Top-level Testbench / board.v)      |
+    4                                  +---------------------------------------+
+    5                                      | (System Clock & Reset)        |
+    6             +------------------------+                               +------------------------+
+    7             |                                                                                 |
+    8 +--------------------------+                                         +--------------------------------------------+
+    9 |      ENDPOINT (DUT)      |                                         |             ROOT PORT (Host Model)         |
+   10 |  (xilinx_dma_pcie_ep.sv) |                                         |           (xilinx_pcie_uscale_rp.v)        |
+   11 +--------------------------+                                         +--------------------------------------------+
+   12 |                          |                                         |                                            |
+   13 |  +--------------------+  |                                         |  +--------------------------------------+  |
+   14 |  |      XDMA IP       |  |          PCIe Serial Link               |  |        Root Port BFM (Logic)         |  |
+   15 |  | (Config + Engines) |<---------------------------------------------->|    (xp4c_usp_smsw_model_core_top)    |  |
+   16 |  +--------------------+  |        (txn/p, rxn/p)                   |  +--------------------------------------+  |
+   17 |            |             |                                         |                    ^                       |
+   18 |            | (AXI MM/ST) |                                         |                    | (AXI-Stream TLP Bus)  |
+   19 |            v             |                                         |                    v                       |
+   20 |  +--------------------+  |                                         |  +--------------------------------------+  |
+   21 |  |      xdma_app      |  |                                         |  |        "Verilog Driver" Stack        |  |
+   22 |  | (BRAM / User Logic)|  |                                         |  | (rx_usrapp, tx_usrapp, cfg_usrapp)   |  |
+   23 |  +--------------------+  |                                         |  +--------------------------------------+  |
+   24 |                          |                                         |                    |                       |
+   25 +--------------------------+                                         |  +--------------------------------------+  |
+   26                                                                      |  |           Test Sequences             |  |
+   27                                                                      |  | (sample_tests.vh / TSK_XDMA_REG_WR)  |  |
+   28                                                                      |  +--------------------------------------+  |
+   29                                                                      |                                            |
+   30                                                                      +--------------------------------------------+
 ```
 ## 7.0 HW Design Verification Test
 _Should contain, explanation of the approach taken, hardware setup, test-cases with explanation on how to setup and run them, and test results.

@@ -3,3 +3,4 @@ fusesoc.conf
 venv/
 build/
 vivado/
+sim/

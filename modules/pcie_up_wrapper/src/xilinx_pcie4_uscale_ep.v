@@ -2,15 +2,15 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
-//Date        : Thu Feb 19 19:33:24 2026
+//Date        : Mon Feb 23 18:33:11 2026
 //Host        : DESKTOP-L2M9C3R running 64-bit Ubuntu 22.04.5 LTS
-//Command     : generate_target pcie_bd_wrapper.bd
-//Design      : pcie_bd_wrapper
+//Command     : generate_target pcie4c_uscale_plus_0_wrapper.bd
+//Design      : pcie4c_uscale_plus_0_wrapper
 //Purpose     : IP block netlist
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-module pcie_bd_wrapper
+module xilinx_pcie4_uscale_ep
    (m_axis_cq_0_tdata,
     m_axis_cq_0_tkeep,
     m_axis_cq_0_tlast,
@@ -23,10 +23,10 @@ module pcie_bd_wrapper
     m_axis_rc_0_tready,
     m_axis_rc_0_tuser,
     m_axis_rc_0_tvalid,
-    pci_express_x4_rxn,
-    pci_express_x4_rxp,
-    pci_express_x4_txn,
-    pci_express_x4_txp,
+    pci_exp_rxn,
+    pci_exp_rxp,
+    pci_exp_txn,
+    pci_exp_txp,
     pcie4_cfg_control_0_bus_number,
     pcie4_cfg_control_0_config_space_enable,
     pcie4_cfg_control_0_ds_bus_number,
@@ -113,8 +113,6 @@ module pcie_bd_wrapper
     pcie4_cfg_status_0_vf_tph_st_mode,
     pcie4_transmit_fc_0_npd_av,
     pcie4_transmit_fc_0_nph_av,
-    pcie_perstn,
-    pcie_refclk,
     phy_rdy_out_0,
     s_axis_cc_0_tdata,
     s_axis_cc_0_tkeep,
@@ -128,26 +126,28 @@ module pcie_bd_wrapper
     s_axis_rq_0_tready,
     s_axis_rq_0_tuser,
     s_axis_rq_0_tvalid,
-    sys_clk,
+    sys_clk_n,
+    sys_clk_p,
+    sys_rst_n,
     user_clk_0,
     user_lnk_up_0,
     user_reset_0);
-  output [127:0]m_axis_cq_0_tdata;
-  output [3:0]m_axis_cq_0_tkeep;
+  output [255:0]m_axis_cq_0_tdata;
+  output [7:0]m_axis_cq_0_tkeep;
   output m_axis_cq_0_tlast;
   input m_axis_cq_0_tready;
   output [87:0]m_axis_cq_0_tuser;
   output m_axis_cq_0_tvalid;
-  output [127:0]m_axis_rc_0_tdata;
-  output [3:0]m_axis_rc_0_tkeep;
+  output [255:0]m_axis_rc_0_tdata;
+  output [7:0]m_axis_rc_0_tkeep;
   output m_axis_rc_0_tlast;
   input m_axis_rc_0_tready;
   output [74:0]m_axis_rc_0_tuser;
   output m_axis_rc_0_tvalid;
-  input [3:0]pci_express_x4_rxn;
-  input [3:0]pci_express_x4_rxp;
-  output [3:0]pci_express_x4_txn;
-  output [3:0]pci_express_x4_txp;
+  input [3:0]pci_exp_rxn;
+  input [3:0]pci_exp_rxp;
+  output [3:0]pci_exp_txn;
+  output [3:0]pci_exp_txp;
   output [7:0]pcie4_cfg_control_0_bus_number;
   input pcie4_cfg_control_0_config_space_enable;
   input [7:0]pcie4_cfg_control_0_ds_bus_number;
@@ -234,42 +234,42 @@ module pcie_bd_wrapper
   output [755:0]pcie4_cfg_status_0_vf_tph_st_mode;
   output [3:0]pcie4_transmit_fc_0_npd_av;
   output [3:0]pcie4_transmit_fc_0_nph_av;
-  input pcie_perstn;
-  input pcie_refclk;
   output phy_rdy_out_0;
-  input [127:0]s_axis_cc_0_tdata;
-  input [3:0]s_axis_cc_0_tkeep;
+  input [255:0]s_axis_cc_0_tdata;
+  input [7:0]s_axis_cc_0_tkeep;
   input s_axis_cc_0_tlast;
   output [3:0]s_axis_cc_0_tready;
   input [32:0]s_axis_cc_0_tuser;
   input s_axis_cc_0_tvalid;
-  input [127:0]s_axis_rq_0_tdata;
-  input [3:0]s_axis_rq_0_tkeep;
+  input [255:0]s_axis_rq_0_tdata;
+  input [7:0]s_axis_rq_0_tkeep;
   input s_axis_rq_0_tlast;
   output [3:0]s_axis_rq_0_tready;
   input [61:0]s_axis_rq_0_tuser;
   input s_axis_rq_0_tvalid;
-  input sys_clk;
+  input [0:0]sys_clk_n;
+  input [0:0]sys_clk_p;
+  input sys_rst_n;
   output user_clk_0;
   output user_lnk_up_0;
   output user_reset_0;
 
-  wire [127:0]m_axis_cq_0_tdata;
-  wire [3:0]m_axis_cq_0_tkeep;
+  wire [255:0]m_axis_cq_0_tdata;
+  wire [7:0]m_axis_cq_0_tkeep;
   wire m_axis_cq_0_tlast;
   wire m_axis_cq_0_tready;
   wire [87:0]m_axis_cq_0_tuser;
   wire m_axis_cq_0_tvalid;
-  wire [127:0]m_axis_rc_0_tdata;
-  wire [3:0]m_axis_rc_0_tkeep;
+  wire [255:0]m_axis_rc_0_tdata;
+  wire [7:0]m_axis_rc_0_tkeep;
   wire m_axis_rc_0_tlast;
   wire m_axis_rc_0_tready;
   wire [74:0]m_axis_rc_0_tuser;
   wire m_axis_rc_0_tvalid;
-  wire [3:0]pci_express_x4_rxn;
-  wire [3:0]pci_express_x4_rxp;
-  wire [3:0]pci_express_x4_txn;
-  wire [3:0]pci_express_x4_txp;
+  wire [3:0]pci_exp_rxn;
+  wire [3:0]pci_exp_rxp;
+  wire [3:0]pci_exp_txn;
+  wire [3:0]pci_exp_txp;
   wire [7:0]pcie4_cfg_control_0_bus_number;
   wire pcie4_cfg_control_0_config_space_enable;
   wire [7:0]pcie4_cfg_control_0_ds_bus_number;
@@ -356,27 +356,27 @@ module pcie_bd_wrapper
   wire [755:0]pcie4_cfg_status_0_vf_tph_st_mode;
   wire [3:0]pcie4_transmit_fc_0_npd_av;
   wire [3:0]pcie4_transmit_fc_0_nph_av;
-  wire pcie_perstn;
-  wire pcie_refclk;
   wire phy_rdy_out_0;
-  wire [127:0]s_axis_cc_0_tdata;
-  wire [3:0]s_axis_cc_0_tkeep;
+  wire [255:0]s_axis_cc_0_tdata;
+  wire [7:0]s_axis_cc_0_tkeep;
   wire s_axis_cc_0_tlast;
   wire [3:0]s_axis_cc_0_tready;
   wire [32:0]s_axis_cc_0_tuser;
   wire s_axis_cc_0_tvalid;
-  wire [127:0]s_axis_rq_0_tdata;
-  wire [3:0]s_axis_rq_0_tkeep;
+  wire [255:0]s_axis_rq_0_tdata;
+  wire [7:0]s_axis_rq_0_tkeep;
   wire s_axis_rq_0_tlast;
   wire [3:0]s_axis_rq_0_tready;
   wire [61:0]s_axis_rq_0_tuser;
   wire s_axis_rq_0_tvalid;
-  wire sys_clk;
+  wire [0:0]sys_clk_n;
+  wire [0:0]sys_clk_p;
+  wire sys_rst_n;
   wire user_clk_0;
   wire user_lnk_up_0;
   wire user_reset_0;
 
-  pcie_bd pcie_bd_i
+  pcie4c_uscale_plus_0 pcie4c_uscale_plus_0_i
        (.m_axis_cq_0_tdata(m_axis_cq_0_tdata),
         .m_axis_cq_0_tkeep(m_axis_cq_0_tkeep),
         .m_axis_cq_0_tlast(m_axis_cq_0_tlast),
@@ -389,10 +389,10 @@ module pcie_bd_wrapper
         .m_axis_rc_0_tready(m_axis_rc_0_tready),
         .m_axis_rc_0_tuser(m_axis_rc_0_tuser),
         .m_axis_rc_0_tvalid(m_axis_rc_0_tvalid),
-        .pci_express_x4_rxn(pci_express_x4_rxn),
-        .pci_express_x4_rxp(pci_express_x4_rxp),
-        .pci_express_x4_txn(pci_express_x4_txn),
-        .pci_express_x4_txp(pci_express_x4_txp),
+        .pci_exp_rxn(pci_exp_rxn),
+        .pci_exp_rxp(pci_exp_rxp),
+        .pci_exp_txn(pci_exp_txn),
+        .pci_exp_txp(pci_exp_txp),
         .pcie4_cfg_control_0_bus_number(pcie4_cfg_control_0_bus_number),
         .pcie4_cfg_control_0_config_space_enable(pcie4_cfg_control_0_config_space_enable),
         .pcie4_cfg_control_0_ds_bus_number(pcie4_cfg_control_0_ds_bus_number),
@@ -479,8 +479,6 @@ module pcie_bd_wrapper
         .pcie4_cfg_status_0_vf_tph_st_mode(pcie4_cfg_status_0_vf_tph_st_mode),
         .pcie4_transmit_fc_0_npd_av(pcie4_transmit_fc_0_npd_av),
         .pcie4_transmit_fc_0_nph_av(pcie4_transmit_fc_0_nph_av),
-        .pcie_perstn(pcie_perstn),
-        .pcie_refclk(pcie_refclk),
         .phy_rdy_out_0(phy_rdy_out_0),
         .s_axis_cc_0_tdata(s_axis_cc_0_tdata),
         .s_axis_cc_0_tkeep(s_axis_cc_0_tkeep),
@@ -494,7 +492,9 @@ module pcie_bd_wrapper
         .s_axis_rq_0_tready(s_axis_rq_0_tready),
         .s_axis_rq_0_tuser(s_axis_rq_0_tuser),
         .s_axis_rq_0_tvalid(s_axis_rq_0_tvalid),
-        .sys_clk(sys_clk),
+        .sys_clk_n(sys_clk_n),
+        .sys_clk_p(sys_clk_p),
+        .sys_rst_n(sys_rst_n),
         .user_clk_0(user_clk_0),
         .user_lnk_up_0(user_lnk_up_0),
         .user_reset_0(user_reset_0));

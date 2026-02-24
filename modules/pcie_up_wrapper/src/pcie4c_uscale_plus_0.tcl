@@ -1,6 +1,6 @@
 
 ################################################################
-# This is a generated script based on design: pcie_bd
+# This is a generated script based on design: pcie4c_uscale_plus_0
 #
 # Though there are limitations about the generated script,
 # the main purpose of this utility is to make learning
@@ -41,7 +41,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 ################################################################
 
 # To test this script, run the following commands from Vivado Tcl console:
-# source pcie_bd_script.tcl
+# source pcie4c_uscale_plus_0_script.tcl
 
 # If there is no project opened, this script will create a
 # project, but make sure you do not have an existing project
@@ -56,9 +56,7 @@ if { $list_projs eq "" } {
 
 # CHANGE DESIGN NAME HERE
 variable design_name
-
-#set design_name pcie_bd
-set design_name xilinx_pcie4_uscale_ep
+set design_name pcie4c_uscale_plus_0
 
 # If you do not already have an existing IP Integrator design open,
 # you can create a design using the following command:
@@ -133,6 +131,7 @@ set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
 xilinx.com:ip:pcie4c_uscale_plus:1.0\
+xilinx.com:ip:util_ds_buf:2.2\
 "
 
    set list_ips_missing ""
@@ -196,11 +195,11 @@ proc create_root_design { parentCell } {
 
 
   # Create interface ports
-  set pci_express_x4 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pci_express_x4 ]
-
   set m_axis_cq_0 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 m_axis_cq_0 ]
 
   set m_axis_rc_0 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 m_axis_rc_0 ]
+
+  set pci_exp [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pci_exp ]
 
   set pcie4_cfg_control_0 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:display_pcie4:pcie4_cfg_control_rtl:1.0 pcie4_cfg_control_0 ]
 
@@ -246,21 +245,22 @@ proc create_root_design { parentCell } {
    CONFIG.TUSER_WIDTH {62} \
    ] $s_axis_rq_0
 
+  set sys [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 sys ]
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {100000000} \
+   ] $sys
+
 
   # Create ports
-  set pcie_refclk [ create_bd_port -dir I -type clk -freq_hz 100000000 pcie_refclk ]
-  set pcie_perstn [ create_bd_port -dir I -type rst pcie_perstn ]
+  set phy_rdy_out_0 [ create_bd_port -dir O phy_rdy_out_0 ]
+  set sys_rst_n [ create_bd_port -dir I -type rst sys_rst_n ]
   set_property -dict [ list \
    CONFIG.POLARITY {ACTIVE_LOW} \
- ] $pcie_perstn
-  set sys_clk [ create_bd_port -dir I -type clk -freq_hz 100000000 sys_clk ]
-  set phy_rdy_out_0 [ create_bd_port -dir O phy_rdy_out_0 ]
+ ] $sys_rst_n
   set user_clk_0 [ create_bd_port -dir O -type clk user_clk_0 ]
   set_property -dict [ list \
    CONFIG.ASSOCIATED_BUSIF {m_axis_cq_0:m_axis_rc_0:s_axis_cc_0:s_axis_rq_0} \
  ] $user_clk_0
-  set_property CONFIG.ASSOCIATED_BUSIF.VALUE_SRC DEFAULT $user_clk_0
-
   set user_lnk_up_0 [ create_bd_port -dir O user_lnk_up_0 ]
   set user_reset_0 [ create_bd_port -dir O -type rst user_reset_0 ]
 
@@ -287,6 +287,15 @@ proc create_root_design { parentCell } {
   ] $pcie4c_uscale_plus_0
 
 
+  # Create instance: util_ds_buf_0, and set properties
+  set util_ds_buf_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_ds_buf:2.2 util_ds_buf_0 ]
+  set_property -dict [list \
+    CONFIG.C_BUF_TYPE {IBUFDSGTE} \
+    CONFIG.DIFF_CLK_IN_BOARD_INTERFACE {Custom} \
+    CONFIG.USE_BOARD_FLOW {true} \
+  ] $util_ds_buf_0
+
+
   # Create interface connections
   connect_bd_intf_net -intf_net pcie4_cfg_control_0_1 [get_bd_intf_ports pcie4_cfg_control_0] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_cfg_control]
   connect_bd_intf_net -intf_net pcie4_cfg_interrupt_0_1 [get_bd_intf_ports pcie4_cfg_interrupt_0] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_cfg_interrupt]
@@ -298,19 +307,20 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net pcie4c_uscale_plus_0_pcie4_cfg_mesg_rcvd [get_bd_intf_ports pcie4_cfg_mesg_rcvd_0] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_cfg_mesg_rcvd]
   connect_bd_intf_net -intf_net pcie4c_uscale_plus_0_pcie4_cfg_mesg_tx [get_bd_intf_ports pcie4_cfg_mesg_tx_0] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_cfg_mesg_tx]
   connect_bd_intf_net -intf_net pcie4c_uscale_plus_0_pcie4_cfg_status [get_bd_intf_ports pcie4_cfg_status_0] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_cfg_status]
-  connect_bd_intf_net -intf_net pcie4c_uscale_plus_0_pcie4_mgt [get_bd_intf_ports pci_express_x4] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_mgt]
+  connect_bd_intf_net -intf_net pcie4c_uscale_plus_0_pcie4_mgt [get_bd_intf_ports pci_exp] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_mgt]
   connect_bd_intf_net -intf_net pcie4c_uscale_plus_0_pcie4_transmit_fc [get_bd_intf_ports pcie4_transmit_fc_0] [get_bd_intf_pins pcie4c_uscale_plus_0/pcie4_transmit_fc]
+  connect_bd_intf_net -intf_net pcie_ref_clk_100MHz_1 [get_bd_intf_ports sys] [get_bd_intf_pins util_ds_buf_0/CLK_IN_D]
   connect_bd_intf_net -intf_net s_axis_cc_0_1 [get_bd_intf_ports s_axis_cc_0] [get_bd_intf_pins pcie4c_uscale_plus_0/s_axis_cc]
   connect_bd_intf_net -intf_net s_axis_rq_0_1 [get_bd_intf_ports s_axis_rq_0] [get_bd_intf_pins pcie4c_uscale_plus_0/s_axis_rq]
 
   # Create port connections
-  connect_bd_net -net clk_100MHz_1 [get_bd_ports pcie_refclk] [get_bd_pins pcie4c_uscale_plus_0/sys_clk_gt]
-  connect_bd_net -net clk_100MHz_1_1 [get_bd_ports sys_clk] [get_bd_pins pcie4c_uscale_plus_0/sys_clk]
   connect_bd_net -net pcie4c_uscale_plus_0_phy_rdy_out [get_bd_pins pcie4c_uscale_plus_0/phy_rdy_out] [get_bd_ports phy_rdy_out_0]
   connect_bd_net -net pcie4c_uscale_plus_0_user_clk [get_bd_pins pcie4c_uscale_plus_0/user_clk] [get_bd_ports user_clk_0]
   connect_bd_net -net pcie4c_uscale_plus_0_user_lnk_up [get_bd_pins pcie4c_uscale_plus_0/user_lnk_up] [get_bd_ports user_lnk_up_0]
   connect_bd_net -net pcie4c_uscale_plus_0_user_reset [get_bd_pins pcie4c_uscale_plus_0/user_reset] [get_bd_ports user_reset_0]
-  connect_bd_net -net pcie_perstn_1 [get_bd_ports pcie_perstn] [get_bd_pins pcie4c_uscale_plus_0/sys_reset]
+  connect_bd_net -net pcie_perstn_1 [get_bd_ports sys_rst_n] [get_bd_pins pcie4c_uscale_plus_0/sys_reset]
+  connect_bd_net -net util_ds_buf_0_IBUF_DS_ODIV2 [get_bd_pins util_ds_buf_0/IBUF_DS_ODIV2] [get_bd_pins pcie4c_uscale_plus_0/sys_clk]
+  connect_bd_net -net util_ds_buf_0_IBUF_OUT [get_bd_pins util_ds_buf_0/IBUF_OUT] [get_bd_pins pcie4c_uscale_plus_0/sys_clk_gt]
 
   # Create address segments
 

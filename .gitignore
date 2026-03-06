@@ -3,4 +3,6 @@ fusesoc.conf
 venv/
 build/
 vivado/
-sim/
+# vivado generated sim files
+xsim/
+modules/pcie_up_wrapper/sim/README.txt

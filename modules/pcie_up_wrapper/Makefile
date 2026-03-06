@@ -22,7 +22,6 @@ compile: clean
 	@echo "---- Building Example ----"
 	mkdir $(PROJ_HOME)/vivado
 	cd $(PROJ_HOME)/vivado && $(VIVADO) -source $(BUILD_SCRIPT)
-	#cp -R $(VIVADO_SIM_DIR) $(MY_SIM_DIR)
 
 clean:
 	rm -rf $(PROJ_HOME)/sim/xsim
@@ -31,7 +30,13 @@ clean:
 # Note: The exact path inside the .sim directory may vary.
 # This target assumes the standard 'sim_1' name for the simulation set.
 
+TESTNAME ?= sample_smoke_test0
 
 sim:
-	@echo "--- Launching XDMA Simulation ---"
-	cd $(MY_SIM_DIR)/xsim && ./*.sh
+	@echo "--- Launching Simulation: $(TESTNAME) ---"
+	# Run compile and elaborate steps from the generated script
+	cd $(MY_SIM_DIR)/xsim && ./board.sh -step compile && ./board.sh -step elaborate
+	# Override the auto-generated cmd.tcl with our persistent asset
+	#cp $(MY_SIM_DIR)/assets/cmd.tcl $(MY_SIM_DIR)/xsim/cmd.tcl
+	# Run simulation with the selected TESTNAME
+	cd $(MY_SIM_DIR)/xsim && xsim board -tclbatch "../cmd.tcl" -testplusarg TESTNAME=$(TESTNAME) -log simulate.log
